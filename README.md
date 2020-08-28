@@ -11,7 +11,7 @@ UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入�
 - 统计
 - 异常捕获
 
-UMHelper库中的相关的友盟SDK的版本号：
+UMHelper库中相关的友盟SDK的版本号：
 
 ```
 api "com.umeng.umsdk:common:9.1.0" 
