@@ -1,6 +1,7 @@
 package com.hzw.umeng;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -25,12 +26,15 @@ public class ShareHelper {
 
     private <T extends Builder> ShareHelper(T t) {
         if (!isConditionsOK(t)) return;
+        UMImage thumbUMImage = new UMImage(t.mActivity, t.mThumbnailImage);
+//        thumbUMImage.compressStyle = UMImage.CompressStyle.SCALE;
+
         if (t instanceof WebBuilder) {
             WebBuilder builder = (WebBuilder) t;
             UMWeb umWeb = new UMWeb(builder.mWebUrl);
             umWeb.setTitle(builder.mTitle);
             umWeb.setDescription(builder.mDescription);
-            umWeb.setThumb(new UMImage(builder.mActivity, builder.mThumbnailImage));
+            umWeb.setThumb(thumbUMImage);
 
             share(new ShareAction(builder.mActivity).withMedia(umWeb), t);
         } else if (t instanceof VideoBuilder) {
@@ -38,13 +42,17 @@ public class ShareHelper {
             UMVideo umVideo = new UMVideo(builder.mVideoUrl);
             umVideo.setTitle(builder.mTitle);
             umVideo.setDescription(builder.mDescription);
-            umVideo.setThumb(new UMImage(builder.mActivity, builder.mThumbnailImage));
+            umVideo.setThumb(thumbUMImage);
 
             share(new ShareAction(builder.mActivity).withMedia(umVideo), t);
         } else if (t instanceof ImageBuilder) {
             ImageBuilder builder = (ImageBuilder) t;
+
             UMImage umImage = new UMImage(builder.mActivity, builder.mImage);
-            umImage.setThumb(new UMImage(builder.mActivity, builder.mThumbnailImage));
+            umImage.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+//            umImage.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+            umImage.compressFormat = Bitmap.CompressFormat.JPEG; // 如果 设置用户分享透明背景的图片PNG，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+            umImage.setThumb(thumbUMImage);
 
             share(new ShareAction(builder.mActivity).withMedia(umImage), t);
         }

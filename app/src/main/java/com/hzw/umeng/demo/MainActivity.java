@@ -1,7 +1,12 @@
 package com.hzw.umeng.demo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +18,7 @@ import com.hzw.umeng.entity.UMAuthResult;
 import com.hzw.umeng.result.PayResultListener;
 import com.hzw.umeng.result.UMAuthResultImpl;
 import com.hzw.umeng.utils.Utils;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.Map;
@@ -49,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
     private void payWX() {
         Utils.debug("payWX");
         PayHelper.createWXPayBuilder(this)
-                .setNonceStr("b6cgBErCbmD7s3q9")
-                .setTimeStamp("1598355933")
-                .setPrepayId("wx25194532999103c5f14e987902db000000")
+                .setNonceStr("vvAiz99Y5zf1a1UA")
+                .setTimeStamp("1598595434")
+                .setPrepayId("wx28141714151115c01928d797df37fd0000")
                 .setPartnerId("1596089991")
-                .setSign("141F0279CCBD1C23751516CC7A81D050")
+                .setSign("280A1F5864B210870ECF9BF1F697D7DF")
                 .setPayResultListener(new PayResultListener() {
                     @Override
                     public void onCancel() {
@@ -89,6 +95,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onViewClick(View view) {
+        int granted =0;
+        if(Build.VERSION.SDK_INT>=23){
+            String[] permissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+            for (int i = 0; i < permissionList.length; i++) {
+                if (ActivityCompat.checkSelfPermission(this,permissionList[i])==PackageManager.PERMISSION_DENIED){
+                    granted=-1;
+                    break;
+                }
+            }
+            if (granted==-1){
+                ActivityCompat.requestPermissions(this,permissionList,100);
+            }
+        }
+        if (granted==-1) return;
+
         switch (view.getId()) {
             case R.id.btn_auth:
                 login();
@@ -154,5 +175,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).pay();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
     }
 }
