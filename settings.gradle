@@ -1,2 +1,2 @@
-include ':app', ':umeng_lib', ':annotations', ':compiler'
+include ':app', ':runtime', ':annotations', ':compiler'
 rootProject.name='umeng-master'
