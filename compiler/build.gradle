@@ -1,5 +1,6 @@
 apply plugin: 'java-library'
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.gitee.hzw'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':annotations')
