@@ -1,39 +1,189 @@
 # UMHelper
 
 #### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入的成本，使用简便。
 
-#### 软件架构
-软件架构说明
+目前主要功能如下：
+- 微信支付
+- 支付宝支付
+- 微信授权
+- 微信分享（包括图片、网页、视频）
+- 统计
+- 异常捕获
+
+UMHelper库中的相关的友盟SDK的版本号：
+
+```
+api "com.umeng.umsdk:common:9.1.0" 
+api "com.umeng.umsdk:asms:1.1.3" 
+api "com.umeng.umsdk:crash:0.0.4" 
+api 'com.umeng.umsdk:share-core:7.0.2'
+api 'com.umeng.umsdk:share-board:7.0.2'
+api 'com.umeng.umsdk:share-wx:7.0.2'
+
+```
+
+#### 项目接入方式？
+
+项目仓库配置，在项目的根build.grade文件加入：
 
 
-#### 安装教程
+```
+buildscript{
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+    repositories｛
+         maven { url 'https://dl.bintray.com/umsdk/release' }
+    ｝
+}
 
-#### 使用说明
+allprojects{
+    repositories｛
+        maven { url "https://jitpack.io" }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+    }
+}
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+项目依赖配置：
 
 
-#### 码云特技
+```
+dependencies {
+    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.2'
+    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.2'
+}
+```
+目前最新版本是1.0.2
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+#### 具体使用
+
+只需两步就可以集成使用
+
+1、在AndroidMainfest文件中，配置如下元数据mate-data、微信分享支付的Activity
+
+配置mate-data：
+
+```
+<meta-data android:name="UMENG_APPKEY" android:value="xxxxxxx"/>
+<meta-data android:name="UMENG_CHANNEL" android:value="xxxxxxx"/>
+<meta-data android:name="WX_APP_ID" android:value="xxxxxxx"/>
+<meta-data android:name="WX_APP_SECRET" android:value="xxxxxxx"/>
+```
+
+可以通过UMUtils的Log日志来查看缺少配置的mate-data
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0828/155753_af408bb9_553126.png "屏幕截图.png")
+
+
+声明微信分享支付的Activity
+
+
+```
+<activity
+            android:name="包名.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="包名.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTop"/>
+```
+
+
+2、在Application的onCreate方法中初始化，同时需要在Application中添加@WXBuilder("xxxx")类注解，其中xxxx是app的applicationId（通常就是包名）
+
+
+```
+@WXBuilder("xxxxx")
+public class App extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // 初始化UMApiHelper
+        UMApiHelper.init(this);
+    }
+}
+
+```
+
+以上两步完成就可以正常使用了
+
+3、提供了三个功能实现类，都是链式调用的方式，分别是：
+
+- LoginHelper：微信授权及删除授权
+- PayHelper: 微信支付、支付宝支付
+- ShareHelper: 微信分享（图片、视频、网页）
+
+
+ **LoginHelper** 
+
+
+```
+LoginHelper.createLoginBuilder(this)
+                .setAuthPlatform(SHARE_MEDIA.WEIXIN)
+                .setNeedAuthOnGetUserInfo(true)
+                .setUMAuthListener(new UMAuthResultImpl(this) {
+                    @Override
+                    public void onResult(UMAuthResult result, SHARE_MEDIA media, Map<String, String> map) {
+                        super.onResult(result, media, map);
+                        mTvHello.setText(Utils.mapToString(map));
+                    }
+                }).login();
+```
+
+
+ **PayHelper** 
+
+
+```
+ PayHelper.createWXPayBuilder(this)
+                .setNonceStr("xxxxxx")
+                .setTimeStamp("xxxxxx")
+                .setPrepayId("xxxxxx")
+                .setPartnerId("xxxxxx")
+                .setSign("xxxxxx")
+                .setPayResultListener(new PayResultListener() {
+                    @Override
+                    public void onCancel() {
+                        mTvHello.setText("wx pay cancel");
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        mTvHello.setText("wx pay success");
+                    }
+
+                    @Override
+                    public void onFailed(String error) {
+                        mTvHello.setText("wx pay error: " + error);
+                    }
+                }).pay();
+```
+
+ **ShareHelper** 
+```
+ShareHelper.createWebBuilder(this)
+                .setSharePlatform(SHARE_MEDIA.WEIXINE)
+                .setWebUrl("https://android.myapp.com/myapp/detail.htm?apkName=com.jingdong.app.mall")
+                .setTitle("-----多快好省，不负每一份热爱-----")
+                .setDescription("京东APP是一款移动购物软件，具有商品搜索[浏览、评论查阅、商品购买、在线支付/货到付款、订单查询、物流跟踪、晒单/评价、返修退换货等功能，为您打造简单、快乐")
+                .setThumbnailImage("https://pp.myapp.com/ma_icon/0/icon_7193_1598341618/96")
+                .share();
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
