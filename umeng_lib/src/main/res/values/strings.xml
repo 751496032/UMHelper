@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">share-lib</string>
+    <string name="share_link_empty">分享链接不能为空</string>
+    <string name="share_title_empty">分享标题不能为空</string>
+    <string name="share_description_empty">分享描述不能为空</string>
+    <string name="share_thumbnail_image_empty">分享缩略图不能为空</string>
+    <string name="share_platform_empty">分享平台不能为空</string>
+    <string name="share_image_empty">分享图片不能为空</string>
+
+
+    <string name="share_success">分享成功</string>
+    <string name="share_fail">分享失败: </string>
+    <string name="share_canceled">分享已取消</string>
+    <string name="share_preparing_data">正在准备数据中&#8230;</string>
+
+    <string name="login_platform_empty">授权平台不能为空</string>
+    <string name="login_auth_listener_empty">请设置UMAuthListener回调函数</string>
+    <string name="login_auth_canceled">授权已取消</string>
+    <string name="login_auth_fail">授权失败:</string>
+    <string name="login_auth_success">授权成功</string>
+    <string name="login_auth_loading">正在授权中&#8230;</string>
+
+    <string name="wx_pay_partnerid_empty">partnerId is empty</string>
+    <string name="wx_pay_prepayid_empty">prepayId is empty</string>
+    <string name="wx_pay_noncestr_empty">nonceStr is empty</string>
+    <string name="wx_pay_timestamp_empty">timestamp is empty</string>
+    <string name="wx_pay_sign_empty">sign is empty</string>
+    <string name="ali_pay_info_empty">order info is empty</string>
+
+
+
+
+
+</resources>

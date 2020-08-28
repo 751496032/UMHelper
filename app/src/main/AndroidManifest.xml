@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hzw.umeng.demo"
+    tools:ignore="all">
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.hzw.umeng.demo.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <meta-data android:name="UMENG_APPKEY" android:value="5ef833cedbc2ec08212b4d6e"/>
+<!--        <meta-data android:name="UMENG_CHANNEL" android:value="222"/>-->
+        <meta-data android:name="WX_APP_ID" android:value="wx1922a3b2ec62ab0a"/>
+        <meta-data android:name="WX_APP_SECRET" android:value="129b4c9b0034f6134f42d91802d4db8f"/>
+
+        <activity
+            android:name="com.baby.babyroom.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.baby.babyroom.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTop"/>
+
+    </application>
+
+</manifest>

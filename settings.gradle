@@ -1,0 +1,2 @@
+include ':app', ':umeng_lib', ':annotations', ':compiler'
+rootProject.name='umeng-master'
