@@ -1,6 +1,6 @@
 # UMHelper
 
-#### 介绍
+### 介绍
 UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入的成本，使用简便。
 
 目前主要功能如下：
@@ -23,7 +23,7 @@ api 'com.umeng.umsdk:share-wx:7.0.2'
 
 ```
 
-#### 项目接入方式？
+### 项目接入方式？
 
 项目仓库配置，在项目的根build.grade文件加入：
 
@@ -49,14 +49,14 @@ allprojects{
 
 ```
 dependencies {
-    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.2'
-    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.2'
+    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.5'
+    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.5'
 }
 ```
-目前最新版本是1.0.2
+目前最新版本是1.0.5
 
 
-#### 具体使用
+### 具体使用
 
 只需两步就可以集成使用
 
