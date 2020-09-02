@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTvHello = findViewById(R.id.hello);
+        mTvHello = findViewById(R.id.hello);//2222
 
 
     }

@@ -16,8 +16,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        UMApiHelper.init(this);
-
+        UMApiHelper.init(this,true);
     }
 }

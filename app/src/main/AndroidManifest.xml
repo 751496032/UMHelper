@@ -30,7 +30,7 @@
         <meta-data android:name="WX_APP_ID" android:value="wx1922a3b2ec62ab0a"/>
         <meta-data android:name="WX_APP_SECRET" android:value="129b4c9b0034f6134f42d91802d4db8f"/>
 
-        <activity
+       <!-- <activity
             android:name="com.baby.babyroom.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
@@ -40,7 +40,7 @@
             android:name="com.baby.babyroom.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"/>-->
 
     </application>
 

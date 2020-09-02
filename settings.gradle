@@ -1,2 +1,2 @@
 include ':app', ':runtime', ':annotations', ':compiler'
-rootProject.name='umeng-master'
+rootProject.name='UMHelper'

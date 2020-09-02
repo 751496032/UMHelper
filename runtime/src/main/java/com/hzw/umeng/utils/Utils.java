@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 
-import com.hzw.umeng.BuildConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -30,7 +29,8 @@ public class Utils {
 
     private static final String TAG = "UMUtils";
 
-    public static boolean isShow=BuildConfig.DEBUG;
+    public static boolean isDebug = false;
+
 
     public static void showShort(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -50,13 +50,13 @@ public class Utils {
     }
 
     public static void error(String tag, String msg) {
-        if (isShow) {
+        if (isDebug) {
             Log.e(tag, msg);
         }
     }
 
     public static void debug(String tag,String msg){
-        if (isShow){
+        if (isDebug){
             Log.d(tag, msg);
         }
     }
@@ -64,9 +64,9 @@ public class Utils {
 
     public static String getApplicationMetaData(Context context,String mateDataName){
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo applicationInfo = getApplicationInfo(context,PackageManager.GET_META_DATA);
             String metaDataValue = applicationInfo.metaData.getString(mateDataName);
-            debug("mate-data name: "+mateDataName+" value: "+metaDataValue);
+//            debug("mate-data name: "+mateDataName+" value: "+metaDataValue);
             if (TextUtils.isEmpty(metaDataValue)){
                 error("检查是否配置 "+mateDataName+" mate-data");
             }
@@ -126,6 +126,11 @@ public class Utils {
         }
     }
 
+
+
+    public static ApplicationInfo getApplicationInfo(Context context,int flags) throws PackageManager.NameNotFoundException {
+        return context.getPackageManager().getApplicationInfo(context.getPackageName(), flags);
+    }
 
 
     public static boolean isClientInstall(Activity context, SHARE_MEDIA media) {
