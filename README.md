@@ -49,11 +49,13 @@ allprojects{
 
 ```
 dependencies {
-    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.5'
-    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.5'
+    implementation 'com.gitee.common-apps.umhelper:runtime:版本号'
+    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:版本号'
 }
 ```
-目前最新版本是1.0.5
+最新版本：
+[![](https://jitpack.io/v/com.gitee.common-apps/umhelper.svg)](https://jitpack.io/#com.gitee.common-apps/umhelper)
+
 
 
 ### 具体使用

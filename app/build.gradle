@@ -51,7 +51,7 @@ dependencies {
     implementation project(':runtime')
     annotationProcessor project(':compiler')
 
-//    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.2'
-//    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.2'
+//    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.3'
+//    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.3'
 
 }
