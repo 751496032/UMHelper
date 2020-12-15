@@ -23,9 +23,9 @@ public class Utils {
 
 
     /**
-     * <p>»ñÈ¡²ÎÊıÀàĞÍ</p>
+     * <p>è·å–å‚æ•°ç±»å‹</p>
      * {@link com.squareup.javapoet.ClassName}
-     * @param className  <code>android.os.Bundle</code> È«ÀàÃû
+     * @param className  <code>android.os.Bundle</code> å…¨ç±»å
      * @return
      */
     public static TypeName getClassTypeName(String className) {
