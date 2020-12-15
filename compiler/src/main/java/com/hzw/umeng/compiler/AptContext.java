@@ -13,11 +13,11 @@ import javax.lang.model.util.Types;
  */
 public class AptContext {
 
-    //鐢ㄤ簬鎶ュ憡閿欒锛岃鍛婂拰鍏朵粬鐨勯�氱煡锛屾瘮濡傛棩蹇楃殑杈撳嚭
+    //用于报告错误，警告和其他的通知，比如日志的输出
     public static Messager messager;
-    //鐢ㄤ簬瀵瑰厓绱犵殑鎿嶄綔瀹炵幇
+    //用于对元素的操作实现
     public static Elements elements;
-    //鐢ㄤ簬鍒涘缓鏂扮殑婧愭枃浠讹紝绫绘枃浠舵垨杈呭姪鏂囦欢鐨勬枃浠剁鐞嗗櫒
+    //用于创建新的源文件，类文件或辅助文件的文件管理器
     public static Filer filer;
     public static Types types;
 
