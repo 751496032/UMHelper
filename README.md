@@ -1,6 +1,6 @@
-# UMHelper
 
-### 介绍
+[toc]
+## 介绍
 UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入的成本，使用简便。
 
 目前主要功能如下：
@@ -11,19 +11,7 @@ UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入�
 - 统计
 - 异常捕获
 
-UMHelper库中相关的友盟SDK的版本号：
-
-```
-api "com.umeng.umsdk:common:9.1.0" 
-api "com.umeng.umsdk:asms:1.1.3" 
-api "com.umeng.umsdk:crash:0.0.4" 
-api 'com.umeng.umsdk:share-core:7.0.2'
-api 'com.umeng.umsdk:share-board:7.0.2'
-api 'com.umeng.umsdk:share-wx:7.0.2'
-
-```
-
-### 项目接入方式？
+## 项目接入方式？
 
 项目仓库配置，在项目的根build.grade文件加入：
 
@@ -40,6 +28,14 @@ allprojects{
     repositories｛
         maven { url "https://jitpack.io" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven {
+            credentials {
+                username 'FX7Fyi'
+                password 'BUE4Ry8juk'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/136106-release-Z4Ub7x/'
+        }
     }
 }
 ```
@@ -58,11 +54,12 @@ dependencies {
 
 
 
-### 具体使用
+## 具体使用
 
 只需两步就可以集成使用
 
-1、在AndroidMainfest文件中，配置如下元数据mate-data、微信分享支付的Activity
+### 初始化
+在AndroidMainfest文件中，配置如下元数据mate-data、微信分享支付的Activity
 
 配置mate-data：
 
@@ -95,8 +92,7 @@ dependencies {
             android:launchMode="singleTop"/>
 ```
 
-
-2、在Application的onCreate方法中初始化，同时需要在Application中添加@WXBuilder("xxxx")类注解，其中xxxx是app的applicationId（通常就是包名）
+在Application的onCreate方法中初始化，同时需要在Application中添加@WXBuilder("xxxx")类注解，其中xxxx是app的applicationId（通常就是包名）
 
 
 ```
@@ -114,14 +110,15 @@ public class App extends Application {
 
 以上两步完成就可以正常使用了
 
-3、提供了三个功能实现类，都是链式调用的方式，分别是：
+###  使用
 
+提供了三个功能实现类，都是链式调用的方式，分别是：
 - LoginHelper：微信授权及删除授权
 - PayHelper: 微信支付、支付宝支付
 - ShareHelper: 微信分享（图片、视频、网页）
 
 
- **LoginHelper** 
+####  微信登录授权
 
 
 ```
@@ -138,7 +135,7 @@ LoginHelper.createLoginBuilder(this)
 ```
 
 
- **PayHelper** 
+#### 支付
 
 
 ```
@@ -166,7 +163,7 @@ LoginHelper.createLoginBuilder(this)
                 }).pay();
 ```
 
- **ShareHelper** 
+#### 分享
 ```
 ShareHelper.createWebBuilder(this)
                 .setSharePlatform(SHARE_MEDIA.WEIXINE)
@@ -178,7 +175,7 @@ ShareHelper.createWebBuilder(this)
 ```
 
 
-4、打包混淆配置
+## 打包混淆配置
 
 
 ```

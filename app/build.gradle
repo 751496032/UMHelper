@@ -44,6 +44,8 @@ android {
 
 
 
+
+
 }
 
 dependencies {
@@ -56,7 +58,8 @@ dependencies {
     implementation project(':runtime')
     annotationProcessor project(':compiler')
 
-//    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.6'
-//    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.6'
+//    implementation 'com.gitee.common-apps.umhelper:runtime:1.0.5'
+//    annotationProcessor 'com.gitee.common-apps.umhelper:compiler:1.0.5'
+
 
 }

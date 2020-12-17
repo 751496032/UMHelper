@@ -36,7 +36,6 @@ dependencies {
 //    androidTestImplementation 'androidx.Test.ext:junit:1.1.1'
 //    androidTestImplementation 'androidx.Test.espresso:espresso-core:3.1.1'
 
-    api (name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
     api "com.umeng.umsdk:common:9.1.0" //包含了统计SDK（必选）
     api "com.umeng.umsdk:asms:1.1.3" // asms包依赖(必选)
     api "com.umeng.umsdk:crash:0.0.4" // native crash包依赖(必选)
@@ -44,5 +43,7 @@ dependencies {
     api 'com.umeng.umsdk:share-board:7.0.2'
     api 'com.umeng.umsdk:share-wx:7.0.2'
     api project(':annotations')
+    implementation 'com.hzw.alipay:sdk:1.0.0' //支付宝SDK no utdid
+
 
 }

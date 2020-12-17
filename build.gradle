@@ -2,9 +2,9 @@
 
 buildscript {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
         jcenter()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
@@ -18,15 +18,21 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url "https://maven.google.com" }
-        maven { url "https://jitpack.io" }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
         jcenter()
 
-        flatDir {
-            dirs '../runtime/libs'
+        maven { url "https://jitpack.io" }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven {
+            credentials {
+                username 'FX7Fyi'
+                password 'BUE4Ry8juk'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/136106-release-Z4Ub7x/'
         }
+
 
     }
 }
