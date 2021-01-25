@@ -11,6 +11,21 @@ UMHelper 主要是基于友盟SDK进行再次封装，可以降低项目接入�
 - 统计
 - 异常捕获
 
+## 版本
+最新版本：
+[![](https://jitpack.io/v/com.gitee.common-apps/umhelper.svg)](https://jitpack.io/#com.gitee.common-apps/umhelper)
+
+### 版本更新记录
+
+**1.0.9**
+
+- 修复Android11 兼容性问题（微信分享问题）
+
+**1.0.8**
+
+- 修复支付宝闪退问题
+
+
 ## 项目接入方式？
 
 项目仓库配置，在项目的根build.grade文件加入：
@@ -49,17 +64,18 @@ dependencies {
     annotationProcessor 'com.gitee.common-apps.umhelper:compiler:版本号'
 }
 ```
-最新版本：
-[![](https://jitpack.io/v/com.gitee.common-apps/umhelper.svg)](https://jitpack.io/#com.gitee.common-apps/umhelper)
-
 
 
 ## 具体使用
 
-只需两步就可以集成使用
+只需两步就可以集成使用：
+1. **文件配置**
+1. **初始化**
 
-### 初始化
-在AndroidMainfest文件中，配置如下元数据mate-data、微信分享支付的Activity
+
+### 文件配置
+
+**一、在AndroidMainfest文件中，配置如下元数据mate-data**
 
 配置mate-data：
 
@@ -69,14 +85,64 @@ dependencies {
 <meta-data android:name="WX_APP_ID" android:value="xxxxxxx"/>
 <meta-data android:name="WX_APP_SECRET" android:value="xxxxxxx"/>
 ```
+**二、适配Android11系统**
 
-可以通过UMUtils的Log日志来查看缺少配置的mate-data
+主要适配两点：
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0828/155753_af408bb9_553126.png "屏幕截图.png")
+1. **软件包可见性**
+1. **强制执行分区存储权限**
 
 
-声明微信分享支付的Activity
+**1> 适配软件包可见性**
 
+修改了软件包可见性，主要会影响到已安装的应用与当前应用交互的方式，比如在判断某个应用是否安装，如果targetSdkVersion=30时，就会抛出未安装等提示。
+
+```xml
+ <queries>
+        <package android:name="com.tencent.mm" />
+ </queries>
+```
+
+**2> 适配强制执行分区存储权限**
+<center>
+![](https://www.showdoc.com.cn/server/api/attachment/visitfile/sign/0aa1dcbaa0c0c3210a1d89c0a185475c)
+
+</center>
+
+**file_provider_paths:**
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-files-path
+        name="umeng_cache"
+        path="umeng_cache/" />
+    <root-path
+        name="umeng_cache"
+        path="." />
+</paths>
+```
+
+在AndroidMainfest声明：
+
+```xml
+ <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+
+ </provider>
+```
+
+
+
+**四、在AndroidMainfest注册微信分享授权、支付的Activity**
+
+这个在`dependencies`中引入依赖包后，同步后会自动生成**WXEntryActivity、WXPayEntryActivity**这个两个类，不需要手动去编写，只需要在清单文件中注册声明即可
 
 ```
 <activity
@@ -85,14 +151,17 @@ dependencies {
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity
+<activity
             android:name="包名.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleTop"/>
 ```
 
-在Application的onCreate方法中初始化，同时需要在Application中添加@WXBuilder("xxxx")类注解，其中xxxx是app的applicationId（通常就是包名）
+
+
+### UMHelper初始化
+在**Application**的**onCreate**方法中初始化，同时需要在Application中添加`@WXBuilder("xxxx")`类注解，其中`xxxx`是应用的**applicationId**
 
 
 ```
@@ -102,15 +171,21 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         // 初始化UMApiHelper
-        UMApiHelper.init(this);
+        UMApiHelper.init(this,"com.baby.babyroom.fileprovider");
     }
 }
 
 ```
 
-以上两步完成就可以正常使用了
 
-###  使用
+另外，可以通过UMUtils的Log日志来查看缺少配置的mate-data
+
+<center>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0828/155753_af408bb9_553126.png "屏幕截图.png")
+</center>
+
+
+###  使用用例
 
 提供了三个功能实现类，都是链式调用的方式，分别是：
 - LoginHelper：微信授权及删除授权
