@@ -24,10 +24,10 @@ public class Utils {
 
     /**
      * <p>获取参数类型</p>
-     * {@link com.squareup.javapoet.ClassName}
-     * @param className  <code>android.os.Bundle</code> 全类名
+            * {@link com.squareup.javapoet.ClassName}
+     * @param className  <code>android.os.Bundle</code>
      * @return
-     */
+             */
     public static TypeName getClassTypeName(String className) {
         return ParameterizedTypeName.get(AptContext.elements.getTypeElement(className).asType());
     }

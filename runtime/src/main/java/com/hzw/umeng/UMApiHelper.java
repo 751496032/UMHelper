@@ -63,13 +63,26 @@ public class UMApiHelper {
         //配置WX参数
         PlatformConfig.setWeixin(wxAppId, wxAppSecret);
 
-
     }
 
 
     public static void init(Context context, boolean isDebug) {
         Utils.isDebug = isDebug;
         init(context);
+    }
+
+
+    /**
+     * 主要适配Android 11 微信不能分享图片问题
+     * @param context
+     * @param authorities
+     */
+    public static void init(Context context,String authorities){
+        init(context);
+        if (!TextUtils.isEmpty(authorities)){
+            PlatformConfig.setWXFileProvider(authorities);
+        }
+
     }
 
 

@@ -29,8 +29,8 @@ public class PayHelper {
     public <T extends Builder> PayHelper(T t) {
 
         if (Utils.isContextNull(t.mActivity)) return;
-        if (t instanceof WXBuilder){
-            WXBuilder builder=(WXBuilder)t;
+        if (t instanceof WXBuilder) {
+            WXBuilder builder = (WXBuilder) t;
             if (!isConditionsOK(builder)) return;
 
             String appid = Utils.getApplicationMetaData(t.mActivity, Configs.WX_APP_ID);
@@ -47,13 +47,13 @@ public class PayHelper {
             api.sendReq(request);
             WeChatPay.INSTANCE.setPayResultListener(builder.mPayResultListener);
 
-        }else if (t instanceof AliBuilder){
-            AliBuilder builder=(AliBuilder) t;
-            if (TextUtils.isEmpty(builder.mOrderInfo)){
-                showToast(builder.mActivity,R.string.ali_pay_info_empty);
+        } else if (t instanceof AliBuilder) {
+            AliBuilder builder = (AliBuilder) t;
+            if (TextUtils.isEmpty(builder.mOrderInfo)) {
+                showToast(builder.mActivity, R.string.ali_pay_info_empty);
                 return;
             }
-            AliPay.pay(builder.mActivity,builder.mOrderInfo,builder.mPayResultListener);
+            AliPay.pay(builder.mActivity, builder.mOrderInfo, builder.mPayResultListener);
 
         }
 
@@ -61,37 +61,37 @@ public class PayHelper {
     }
 
     private boolean isConditionsOK(WXBuilder builder) {
-        if (TextUtils.isEmpty(builder.mPartnerId)){
-            showToast(builder.mActivity,R.string.wx_pay_partnerid_empty);
+        if (TextUtils.isEmpty(builder.mPartnerId)) {
+            showToast(builder.mActivity, R.string.wx_pay_partnerid_empty);
             return false;
-        }else if (TextUtils.isEmpty(builder.mPrepayId)){
-            showToast(builder.mActivity,R.string.wx_pay_prepayid_empty);
+        } else if (TextUtils.isEmpty(builder.mPrepayId)) {
+            showToast(builder.mActivity, R.string.wx_pay_prepayid_empty);
             return false;
-        }else if (TextUtils.isEmpty(builder.mNonceStr)){
-            showToast(builder.mActivity,R.string.wx_pay_noncestr_empty);
+        } else if (TextUtils.isEmpty(builder.mNonceStr)) {
+            showToast(builder.mActivity, R.string.wx_pay_noncestr_empty);
             return false;
-        }else if (TextUtils.isEmpty(builder.mTimeStamp)){
-            showToast(builder.mActivity,R.string.wx_pay_timestamp_empty);
+        } else if (TextUtils.isEmpty(builder.mTimeStamp)) {
+            showToast(builder.mActivity, R.string.wx_pay_timestamp_empty);
             return false;
-        }else if (TextUtils.isEmpty(builder.mSign)){
-            showToast(builder.mActivity,R.string.wx_pay_sign_empty);
+        } else if (TextUtils.isEmpty(builder.mSign)) {
+            showToast(builder.mActivity, R.string.wx_pay_sign_empty);
             return false;
         }
         return true;
     }
 
-    private void  showToast(Activity activity,@StringRes int msg){
-        Utils.showShort(activity,activity.getString(msg));
+    private void showToast(Activity activity, @StringRes int msg) {
+        Utils.showShort(activity, activity.getString(msg));
     }
 
 
-    public static WXBuilder createWXPayBuilder(Activity activity){
+    public static WXBuilder createWXPayBuilder(Activity activity) {
         return new WXBuilder(activity);
     }
 
 
-    public static AliBuilder createAliPayBuilder(Activity activity){
-        return  new AliBuilder(activity);
+    public static AliBuilder createAliPayBuilder(Activity activity) {
+        return new AliBuilder(activity);
     }
 
 
@@ -120,7 +120,6 @@ public class PayHelper {
             mPrepayId = prepayId;
             return this;
         }
-
 
 
         public WXBuilder setNonceStr(String nonceStr) {
@@ -165,8 +164,8 @@ public class PayHelper {
 
     public static class Builder<T extends Builder> {
 
-         Activity mActivity;
-         PayResultListener mPayResultListener;
+        Activity mActivity;
+        PayResultListener mPayResultListener;
 
         public Builder(Activity activity) {
             mActivity = new WeakReference<>(activity).get();

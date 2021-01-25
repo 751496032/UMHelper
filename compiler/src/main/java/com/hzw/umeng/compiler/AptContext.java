@@ -13,7 +13,7 @@ import javax.lang.model.util.Types;
  */
 public class AptContext {
 
-    //用于报告错误，警告和其他的通知，比如日志的输出
+    //用于报告错误
     public static Messager messager;
     //用于对元素的操作实现
     public static Elements elements;

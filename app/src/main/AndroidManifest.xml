@@ -3,11 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hzw.umeng.demo"
     tools:ignore="all">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <queries>
+        <package android:name="com.tencent.mm" />
+    </queries>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -25,12 +32,32 @@
 
         </activity>
 
-        <meta-data android:name="UMENG_APPKEY" android:value="5ef833cedbc2ec08212b4d6e"/>
-<!--        <meta-data android:name="UMENG_CHANNEL" android:value="222"/>-->
-        <meta-data android:name="WX_APP_ID" android:value="wx1922a3b2ec62ab0a"/>
-        <meta-data android:name="WX_APP_SECRET" android:value="129b4c9b0034f6134f42d91802d4db8f"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5ef833cedbc2ec08212b4d6e" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="222" />
+        <meta-data
+            android:name="WX_APP_ID"
+            android:value="wx1922a3b2ec62ab0a" />
+        <meta-data
+            android:name="WX_APP_SECRET"
+            android:value="129b4c9b0034f6134f42d91802d4db8f" />
 
-       <!-- <activity
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+
+        </provider>
+
+        <activity
             android:name="com.baby.babyroom.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
@@ -39,8 +66,8 @@
         <activity
             android:name="com.baby.babyroom.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleTop"/>-->
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     </application>
 
