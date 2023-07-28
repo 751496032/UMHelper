@@ -171,7 +171,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         // 初始化UMApiHelper
-        UMApiHelper.init(this,"com.baby.babyroom.fileprovider");
+        UMApiHelper.init(this,"com.xxxxx.fileprovider");
     }
 }
 
